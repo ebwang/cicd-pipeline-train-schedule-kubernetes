@@ -11,20 +11,6 @@ spec:
     port: 8080
     nodePort: 8080
     
-kind: Service
-apiVersion: v1
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30080
-  type: NodePort
-
 ---
 
 apiVersion: extensions/v1beta1
@@ -49,24 +35,3 @@ spec:
         ports:
         - containerPort: 8080
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.15.4
-        ports:
-        - containerPort: 80
